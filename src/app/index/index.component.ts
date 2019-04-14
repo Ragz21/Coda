@@ -34,6 +34,7 @@ export class IndexComponent implements OnInit {
       response => {
         this.allData = response;
         console.log(this.allData)
+        //test commiit
       }
     )
   }
