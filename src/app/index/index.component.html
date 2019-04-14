@@ -1,0 +1,25 @@
+<div id="torefresh" class="table-wrapper-scroll-y my-custom-scrollbar">
+  <table class="table">
+    <thead>
+      <th>Request</th>
+      <th>Response</th>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let data of allData">
+        <td>{{ data.requestContent }}</td>
+        <td>{{ data.responseContent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<br>
+<div style="text-align:center">
+  <a (click)="initiateRecording()" class="btn btn-primary" *ngIf="!recording"> Start Recording </a>
+  <a (click)="stopRecording()" class="btn btn-danger" *ngIf="recording"> Stop Recording </a>
+  <div class="clearfix"></div>
+  <audio #audio1 id="audio" controls>No support of audio tag</audio>
+  <audio id="audioResponse" controls>No support of audio tag</audio>
+<!-- 
+  <audio id="player" controls></audio> -->
+</div>

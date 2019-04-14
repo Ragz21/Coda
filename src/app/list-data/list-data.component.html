@@ -1,0 +1,14 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <th>Request</th>
+      <th>Response</th>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let data of allData">
+        <td>{{ data.requestContent }}</td>
+        <td>{{ data.responseContent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
