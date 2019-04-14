@@ -24,13 +24,26 @@ navigator.mediaDevices.getUserMedia({audio:true})
             arrayBuffer = convertFloat32ToInt16(newBuffer.getChannelData(0));
             console.log(arrayBuffer);
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://localhost:8080/users", false);
+            xhr.open("POST", "http://localhost:8080/users", true);
+            xhr.responseType = 'arraybuffer';
             xhr.send(arrayBuffer);
-            var resp = xhr.response;
-            console.log(resp)
-            var blobData1 = base64toBlob(resp);
-            console.log(blobData1)
-            document.getElementById('audioResponse').src = window.URL.createObjectURL(blobData1);
+            // var resp = xhr.response;
+            xhr.onload = function(e) {
+                source = audioContext.createBufferSource();
+                var audioData = xhr.response;
+                console.log("audiodata",audioData)
+                var blobData1 = new Blob([audioData], {type: 'audio/mpeg'});
+                document.getElementById('audioResponse').src = window.URL.createObjectURL(blobData1); 
+              };
+            
+            // var arrayBuffer = new ArrayBuffer(resp.length);
+            // var bufferView = new Uint8Array(arrayBuffer);
+            // for (i = 0; i < resp.length; i++) {
+            // bufferView[i] = resp[i];
+            // }
+            // console.log(new ArrayBuffer(bufferView));
+            // processConcatenatedFile( new ArrayBuffer(bufferView) )
+            // playByteArray(resp)
            // window.location.reload()
         });
         });
@@ -105,3 +118,41 @@ function  sleep(miliseconds) {
     return new Blob(byteArrays, {type: 'audio/mpeg'});
 
 }
+
+
+// var context;    // Audio context
+// var buf;  
+// context = new AudioContext();
+// function playByteArray(byteArray) {
+
+//     var arrayBuffer = new ArrayBuffer(byteArray.length);
+//     var bufferView = new Uint8Array(arrayBuffer);
+//     for (i = 0; i < byteArray.length; i++) {
+//       bufferView[i] = byteArray[i];
+//     }
+//     console.log(bufferView)
+//     context.decodeAudioData(arrayBuffer, function(buffer) {
+//         buf = buffer;
+//         var playPromise = video.play();
+//         if (playPromise !== undefined) {
+//             playPromise.then(_ => {
+//                 play();
+//             })
+//             .catch(error => {
+//             // Auto-play was prevented
+//             // Show paused UI.
+//             });
+//         }
+//     });
+// }
+
+// // Play the loaded file
+// function play() {
+//     // Create a source node from the buffer
+//     var source = context.createBufferSource();
+//     source.buffer = buf;
+//     // Connect to the final output node (the speakers)
+//     source.connect(context.destination);
+//     // Play immediately
+//     source.start(0);
+// }
