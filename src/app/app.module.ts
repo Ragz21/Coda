@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
-import { ChatspaceComponent } from './chatspace/chatspace.component';
 import { IndexComponent } from './index/index.component';
 import { ListDataComponent } from './list-data/list-data.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     MenuComponent,
     FooterComponent,
-    ChatspaceComponent,
     IndexComponent,
     ListDataComponent
   ],

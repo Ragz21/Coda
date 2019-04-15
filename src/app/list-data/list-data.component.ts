@@ -14,10 +14,10 @@ export class ListDataComponent implements OnInit {
   allData : LexData[];
   private page : number= 0;
   private totalPages:Array<number>;
-
+  private size:number = 3;
 
   retreiveAllFiles(){
-    this.lexService.retrieveAllFiles(this.page).subscribe(
+    this.lexService.retrieveAllFiles(this.page, this.size).subscribe(
       response =>{
         this.allData = response['content'];
         this.totalPages = new Array(response['totalPages']);
@@ -49,6 +49,7 @@ export class ListDataComponent implements OnInit {
     var url = "data:audio/wav;base64," + data.requestContent;
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
+  
   responseData(data: any){
     var url = "data:audio/wav;base64," + data.responseContent;
     return this.domSanitizer.bypassSecurityTrustUrl(url);

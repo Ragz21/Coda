@@ -22,14 +22,12 @@ navigator.mediaDevices.getUserMedia({audio:true})
         audioContext.decodeAudioData(reader.result, function(buffer) {
         reSample(buffer, 16000, function(newBuffer){
             arrayBuffer = convertFloat32ToInt16(newBuffer.getChannelData(0));
-            console.log(arrayBuffer);
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "http://localhost:8001/users", true);
             xhr.responseType = 'arraybuffer';
             xhr.send(arrayBuffer);
             xhr.onload = function(e) {
                 var audioData = xhr.response;
-                console.log("audiodata",audioData)
                 var blobResponseData = new Blob([audioData], {type: 'audio/mpeg'});
                 document.getElementById('audioResponse').src = window.URL.createObjectURL(blobResponseData); 
               };
@@ -47,23 +45,21 @@ navigator.mediaDevices.getUserMedia({audio:true})
 
 function start(){
     dataRetreaved = false;
-    window.recorder.start()
+    window.recorder.start();
 }
 
 async function stop(){
     window.recorder.stop();
 }
+
 function reSample(audioBuffer, targetSampleRate, onComplete) {
     var channel = audioBuffer.numberOfChannels;
     var samples = audioBuffer.length * targetSampleRate / audioBuffer.sampleRate;
-
     var offlineContext = new OfflineAudioContext(channel, samples, targetSampleRate);
     var bufferSource = offlineContext.createBufferSource();
     bufferSource.buffer = audioBuffer;
-
     bufferSource.connect(offlineContext.destination);
     bufferSource.start(0);
-
     offlineContext.startRendering().then(function(renderedBuffer){
         onComplete(renderedBuffer);
 })

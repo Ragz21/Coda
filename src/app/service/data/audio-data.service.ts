@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LexData } from 'src/app/index/index.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ export class AudioDataService {
     private http : HttpClient,
   ) { }
 
-  retrieveAllFiles(page :number){
-    return this.http.get(this.url+'/users'+'?page='+page);
+  retrieveAllFiles(page :number, size : number){
+    return this.http.get(this.url+'/users'+'?page='+page+'&size='+size);
   }
 }

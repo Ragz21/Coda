@@ -20,6 +20,7 @@ export class LexData {
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css']
 })
+
 export class IndexComponent implements OnInit {
   audioControl: any;
   recording: boolean;
@@ -39,6 +40,7 @@ export class IndexComponent implements OnInit {
     start();
     this.recording = true;
   }
+  
   stopRecording() {
     this.request = true;
     stop();
