@@ -12,6 +12,6 @@ export class AudioDataService {
   ) { }
 
   retrieveAllFiles(){
-    return this.http.get<LexData[]>(`http://localhost:8080/users`);
+    return this.http.get<LexData[]>(`http://localhost:8001/users`);
   }
 }

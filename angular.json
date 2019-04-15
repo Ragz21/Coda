@@ -26,8 +26,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "E:/coda-application/frontend v2/coda/src/assets/recorder.js",
-              "E:/coda-application/frontend v2/coda/src/assets/googl.js"
+              "E:/coda-application/frontend v2/coda/src/assets/recorder.js"
             
             ]
           },
