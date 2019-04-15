@@ -9,10 +9,9 @@ declare const arrayBuffer: any;
 
 export class LexData {
   constructor(
-    requestContent: String,
-    responseContent: String
+    requestContent: any,
+    responseContent: any
   ) {
-
   }
 }
 
