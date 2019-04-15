@@ -6,12 +6,13 @@ import { LexData } from 'src/app/index/index.component';
   providedIn: 'root'
 })
 export class AudioDataService {
+  private url = 'http://localhost:8001'
 
   constructor(
     private http : HttpClient,
   ) { }
 
-  retrieveAllFiles(){
-    return this.http.get<LexData[]>(`http://localhost:8001/users`);
+  retrieveAllFiles(page :number){
+    return this.http.get(this.url+'/users'+'?page='+page);
   }
 }

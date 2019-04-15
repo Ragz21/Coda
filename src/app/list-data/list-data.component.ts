@@ -12,12 +12,26 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ListDataComponent implements OnInit {
 
   allData : LexData[];
+  private page : number= 0;
+  private totalPages:Array<number>;
+
+
   retreiveAllFiles(){
-    this.lexService.retrieveAllFiles().subscribe(
+    this.lexService.retrieveAllFiles(this.page).subscribe(
       response =>{
-        this.allData = response;
+        this.allData = response['content'];
+        this.totalPages = new Array(response['totalPages']);
+      },
+      (error) => {
+        console.log(error.error.message);
       }
     )
+  }
+
+  setPage(i ,event:any){
+    event.preventDefault();
+    this.page=i;
+    this.retreiveAllFiles()
   }
 
   constructor(
@@ -39,5 +53,4 @@ export class ListDataComponent implements OnInit {
     var url = "data:audio/wav;base64," + data.responseContent;
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
-
 }
