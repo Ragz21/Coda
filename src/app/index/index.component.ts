@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { AudioDataService } from '../service/data/audio-data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare function start(): any;
 declare function stop(): any;
@@ -18,7 +19,7 @@ export class LexData {
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.css'],
 })
 
 export class IndexComponent implements OnInit {
@@ -26,10 +27,33 @@ export class IndexComponent implements OnInit {
   recording: boolean;
   request: boolean;
   response: boolean;
+  allData : LexData[];
+  private page : number= 0;
+  private totalPages:Array<number>;
+  private size:number = 3;
+
+  retreiveAllFiles(){
+    this.lexService.retrieveAllFiles(this.page, this.size).subscribe(
+      response =>{
+        this.allData = response['content'];
+        this.totalPages = new Array(response['totalPages']);
+      },
+      (error) => {
+        console.log(error.error.message);
+      }
+    )
+  }
+
+  setPage(i ,event:any){
+    event.preventDefault();
+    this.page=i;
+    this.retreiveAllFiles()
+  }
 
   constructor(
     private lexService: AudioDataService,
     private router: Router,
+    private domSanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -45,5 +69,18 @@ export class IndexComponent implements OnInit {
     this.request = true;
     stop();
     this.recording = false;
+    this.retreiveAllFiles();
+    this.router.navigate([""]);
   }
+
+  requestData(data : any){
+    var url = "data:audio/wav;base64," + data.requestContent;
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+  
+  responseData(data: any){
+    var url = "data:audio/wav;base64," + data.responseContent;
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+  
 }

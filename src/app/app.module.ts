@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { IndexComponent } from './index/index.component';
-import { ListDataComponent } from './list-data/list-data.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     MenuComponent,
     FooterComponent,
     IndexComponent,
-    ListDataComponent
   ],
   imports: [
     BrowserModule,
