@@ -69,7 +69,7 @@ export class IndexComponent implements OnInit {
     this.request = true;
     stop();
     this.recording = false;
-    this.retreiveAllFiles();
+    this.retreiveAllFiles();//used at stoprecording to avoid refresh required when used in ngoninit
     this.router.navigate([""]);
   }
 
